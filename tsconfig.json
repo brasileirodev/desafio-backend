@@ -14,19 +14,17 @@
     "allowJs": true,                                  
     "outDir": "./dist",                                   
     "removeComments": true,                           
-    "esModuleInterop": true,                                
+    "esModuleInterop": true,
+    "strictPropertyInitialization": false,                                
     "forceConsistentCasingInFileNames": true,              
     "strict": true,                                          
     "skipLibCheck": true,
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "paths": {
-      "@controllers/*": ["./src/controllers/*"],
-      "@models/*": ["./src/models/*"],
-      "@views/*": ["./src/views/*"],
-      "@config/*": ["./src/config/*"],
-      "@repository/*": ["./src/repository/*"],
-      "@services/*": ["./src/services/*"],
-      "@util/*": ["./src/util/*"] 
+      "@modules/*": ["modules/*"],
+      "@errors/*": ["shared/errors/*"],
+      "@config/*": ["config/*"],
+      "@shared/*": ["shared/*"]
     }
   },
   "include": [
