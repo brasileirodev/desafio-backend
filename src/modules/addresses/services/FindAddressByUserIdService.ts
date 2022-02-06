@@ -24,7 +24,7 @@ class FindAddressByUserIdService {
       throw new AppError('The user id does not exists');
     }
 
-    const addresses = await this.addressesRepository.findById(user_id);
+    const addresses = await this.addressesRepository.findAddressByUserId(user_id);
 
     const addressesOmitSameValue = addresses.map(({
       id, complement_address, address, city, state, country, created_at, updated_at,
