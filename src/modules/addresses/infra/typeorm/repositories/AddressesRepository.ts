@@ -20,11 +20,13 @@ class AddressesRepository implements IAddressesRepository {
     return this.ormRepository.save(address);
   }
 
-  // public async findAll(): Promise<Address[]> {
-  //   const appointments = await this.ormRepository.find();
+  public async findById(user_id: string): Promise<Address[]> {
+    const addresses = await this.ormRepository.find({
+      where: { user_id },
+    });
 
-  //   return appointments;
-  // }
+    return addresses;
+  }
 }
 
 export default AddressesRepository;
