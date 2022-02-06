@@ -36,7 +36,7 @@ export class CreateAddress1644088866781 implements MigrationInterface {
             type: 'varchar',
           },
           {
-            name: 'complete_address',
+            name: 'complement_address',
             type: 'varchar',
           },
           {
