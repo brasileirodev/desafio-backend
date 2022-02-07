@@ -44,6 +44,17 @@ class AddressesRepository implements IAddressesRepository {
       .where('id = :id', { id })
       .execute();
   }
+
+  public async indexByQuery(queryParams: Address): Promise<Address[]> {
+    // console.log(queryParams);
+    const addresses = await this.ormRepository.find({
+      where: {
+        ...queryParams,
+      },
+    });
+
+    return addresses;
+  }
 }
 
 export default AddressesRepository;

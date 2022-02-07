@@ -7,4 +7,5 @@ export default interface IAddressesRepository {
   findAddressByUserId(user_id: string): Promise<Address[]>;
   findById(address_id: string): Promise<Address | undefined>;
   delete(id: string): Promise<void>;
+  indexByQuery(queryParams: Address): Promise<Address[]>;
 }
