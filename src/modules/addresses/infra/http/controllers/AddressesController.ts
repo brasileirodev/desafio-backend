@@ -4,7 +4,7 @@ import { container } from 'tsyringe';
 import ICreateAddressDTO from '@modules/addresses/dtos/ICreateAddressDTO';
 import CreateAddressService from '@modules/addresses/services/CreateAddressesService';
 import DeleteAddressByIdService from '@modules/addresses/services/DeleteAddressByIdService';
-import FindAdrressByQueryService from '@modules/addresses/services/FindAdrressByQueryService';
+import FindAdrressesByQueryService from '@modules/addresses/services/FindAdrressesByQueryService';
 
 export default class AddressesController {
   public async create(req: Request, res: Response): Promise<Response> {
@@ -44,8 +44,8 @@ export default class AddressesController {
         addressQueryInput.push({ [key]: req.query[key] });
       }
     }
-    const findAdrressByQueryService = container.resolve(FindAdrressByQueryService);
-    const addresses = await findAdrressByQueryService.execute({ user_id: id, addressQueryInput });
+    const findAdrressesByQueryService = container.resolve(FindAdrressesByQueryService);
+    const addresses = await findAdrressesByQueryService.execute({ user_id: id, addressQueryInput });
 
     return res.status(200).json(addresses);
   }

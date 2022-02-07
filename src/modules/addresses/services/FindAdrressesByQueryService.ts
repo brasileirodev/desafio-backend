@@ -8,7 +8,7 @@ import Address from '../infra/typeorm/entities/Address';
 import IFindAdrressesByQueryParamsDTO from '../dtos/IFindAdrressByQueryParamsDTO';
 
 @injectable()
-class FindAdrressByQueryService {
+class FindAdrressesByQueryService {
   constructor(
     @inject('AddressesRepository')
     private addressesRepository: IAddressesRepository,
@@ -54,4 +54,4 @@ class FindAdrressByQueryService {
     return addressesOmitSameValue;
   }
 }
-export default FindAdrressByQueryService;
+export default FindAdrressesByQueryService;
