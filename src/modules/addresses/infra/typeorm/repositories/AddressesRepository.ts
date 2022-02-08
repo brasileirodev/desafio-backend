@@ -46,7 +46,6 @@ class AddressesRepository implements IAddressesRepository {
   }
 
   public async indexByQuery(queryParams: Address): Promise<Address[]> {
-    // console.log(queryParams);
     const addresses = await this.ormRepository.find({
       where: {
         ...queryParams,

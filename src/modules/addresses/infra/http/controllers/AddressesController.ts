@@ -5,6 +5,8 @@ import ICreateAddressDTO from '@modules/addresses/dtos/ICreateAddressDTO';
 import CreateAddressService from '@modules/addresses/services/CreateAddressesService';
 import DeleteAddressByIdService from '@modules/addresses/services/DeleteAddressByIdService';
 import FindAdrressesByQueryService from '@modules/addresses/services/FindAdrressesByQueryService';
+import FindAddressByIdService from '@modules/addresses/services/FindAddressByIdService';
+import UpdateAddressService from '@modules/addresses/services/UpdateAddressService';
 
 export default class AddressesController {
   public async create(req: Request, res: Response): Promise<Response> {
@@ -46,6 +48,38 @@ export default class AddressesController {
     }
     const findAdrressesByQueryService = container.resolve(FindAdrressesByQueryService);
     const addresses = await findAdrressesByQueryService.execute({ user_id: id, addressQueryInput });
+
+    return res.status(200).json(addresses);
+  }
+
+  public async find(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+
+    if (!id) {
+      throw new AppError('Param user id is required');
+    }
+
+    const findUserById = container.resolve(FindAddressByIdService);
+    const address = await findUserById.execute(id);
+    return res.json(address);
+  }
+
+  public async update(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+    if (!id) {
+      throw new AppError('Param address id is required');
+    }
+    if (!req.body) {
+      throw new AppError('Data is required');
+    }
+    const dataToUpdate:any[] = [];
+    for (const key in req.body) {
+      if (Object.prototype.hasOwnProperty.call(req.body, key)) {
+        dataToUpdate.push({ [key]: req.body[key] });
+      }
+    }
+    const updateAddressService = container.resolve(UpdateAddressService);
+    const addresses = await updateAddressService.execute({ address_id: id, dataToUpdate });
 
     return res.status(200).json(addresses);
   }
