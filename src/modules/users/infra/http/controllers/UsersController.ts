@@ -33,20 +33,20 @@ export default class UsersController {
 
   public async update(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
-    const { name, email, password } = req.body;
+    const { name, email } = req.body;
 
     if (!id) {
       throw new AppError('Param user id is required');
     }
-    if (!name && !email && !password) {
+    if (!name && !email) {
       throw new AppError('No value to update');
     }
 
     const updateUserById = container.resolve(UpdateUserByIdService);
     const userUpdated = await updateUserById.execute({
-      id, name, email, password,
+      id, name, email,
     });
-    return res.json(omit(userUpdated, 'user.password'));
+    return res.json(omit(userUpdated, 'password'));
   }
 
   public async delete(req: Request, res: Response): Promise<Response> {

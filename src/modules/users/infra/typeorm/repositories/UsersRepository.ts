@@ -1,5 +1,4 @@
 import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
-import IUpdateUserDTO from '@modules/users/dtos/IUpdateUserDTO';
 import User from '@modules/users/infra/typeorm/entities/User';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import { getConnection, getRepository, Repository } from 'typeorm';
@@ -34,34 +33,6 @@ class UsersRepository implements IUsersRepository {
 
   public save(user: User): Promise<User> {
     return this.ormRepository.save(user);
-  }
-
-  public async update({
-    id, email, name, password,
-  }: IUpdateUserDTO): Promise<User> {
-    const userToUpdate = await this.ormRepository.findOne({
-      where: { id },
-    });
-    if (!userToUpdate) {
-      throw new Error('User not found');
-    }
-    if (email) {
-      Object.assign(userToUpdate, { email });
-    }
-    if (name) {
-      Object.assign(userToUpdate, { name });
-    }
-    if (password) {
-      Object.assign(userToUpdate, { password });
-    }
-
-    await getConnection()
-      .createQueryBuilder()
-      .update(User)
-      .set(userToUpdate)
-      .where('id = :id', { id })
-      .execute();
-    return userToUpdate;
   }
 
   public async delete(id: string): Promise<void> {

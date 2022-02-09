@@ -2,7 +2,6 @@ import { v4 } from 'uuid';
 import User from '@modules/users/infra/typeorm/entities/User';
 import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
-import IUpdateUserDTO from '@modules/users/dtos/IUpdateUserDTO';
 
 class UsersRepository implements IUsersRepository {
   private users: User[] = [];
@@ -32,15 +31,6 @@ class UsersRepository implements IUsersRepository {
 
   public async delete(id: string): Promise<void> {
     this.users = this.users.filter((user) => user.id !== id);
-  }
-
-  public async update(data: IUpdateUserDTO): Promise<User> {
-    const user = await this.findById(data.id);
-    if (!user) {
-      throw new Error('User not found');
-    }
-    Object.assign(user, { ...data });
-    return user;
   }
 }
 export default UsersRepository;

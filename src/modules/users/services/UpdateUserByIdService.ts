@@ -1,4 +1,5 @@
 import AppError from '@errors/AppError';
+import { omit } from 'lodash';
 import { inject, injectable } from 'tsyringe'
 import validator from 'validator';
 import IUpdateUserDTO from '../dtos/IUpdateUserDTO';
@@ -12,19 +13,20 @@ class UpdateUserByIdService {
     private usersRepository: IUsersRepository,
   ) {}
 
-  public async execute({
-    id, email, name, password,
-  }: IUpdateUserDTO): Promise<User> {
-    if (!(validator.isUUID(id))) {
+  public async execute(data: IUpdateUserDTO): Promise<User> {
+    if (!(validator.isUUID(data.id))) {
       throw new AppError('User id is invalid');
     }
 
-    const updatedUser = await this.usersRepository.update({
-      id,
-      email,
-      name,
-      password,
-    });
+    const user = await this.usersRepository.findById(data.id);
+    if (!user) {
+      throw new AppError('User not found');
+    }
+    const dataToUpdate = omit(data, ['id']);
+    console.log({ dataToUpdate, user })
+    Object.assign(user, { ...dataToUpdate });
+    console.log(user);
+    const updatedUser = await this.usersRepository.save(user);
 
     return updatedUser;
   }
