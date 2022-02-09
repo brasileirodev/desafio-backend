@@ -23,9 +23,7 @@ class UpdateUserByIdService {
       throw new AppError('User not found');
     }
     const dataToUpdate = omit(data, ['id']);
-    console.log({ dataToUpdate, user })
     Object.assign(user, { ...dataToUpdate });
-    console.log(user);
     const updatedUser = await this.usersRepository.save(user);
 
     return updatedUser;

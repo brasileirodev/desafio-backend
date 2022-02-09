@@ -36,9 +36,7 @@ class UpdateAddressService {
     if (!address) {
       throw new AppError('Address not found');
     }
-    console.log(address)
     Object.assign(address, { ...validatedDataToUpdate });
-    console.log(address)
     const updatedAddress = await this.addressesRepository.save(address);
 
     return updatedAddress;
