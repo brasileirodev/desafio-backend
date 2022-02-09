@@ -16,7 +16,7 @@ class DeleteUserByIdService {
     }
     const addressExist = await this.addressesRepository.findById(id);
     if (!addressExist) {
-      throw new AppError('Address ID not found in Addresses table');
+      throw new AppError('Address ID not found');
     }
     this.addressesRepository.delete(addressExist.id);
   }

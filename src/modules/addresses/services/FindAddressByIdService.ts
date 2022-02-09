@@ -18,7 +18,7 @@ class FindAddressByIdService {
     const address = await this.addressesRepository.findById(id);
 
     if (!address) {
-      throw new AppError('Address not found');
+      throw new AppError('Address ID not found');
     }
 
     return address;
