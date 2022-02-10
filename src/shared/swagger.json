@@ -607,7 +607,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ErrorAddressNotFound"
+                  "$ref": "#/components/schemas/ErrorAddressIdInvalid"
                 }
               }
             }
@@ -721,6 +721,31 @@
             "format": "int64",
             "example": 1
           },
+          "country": {
+            "type": "string",
+            "example": "BR"
+          },
+          "address": {
+            "type": "string",
+            "example": "Rua dos Bobos"
+          },
+          "complement_address": {
+            "type": "string",
+            "example": "Bloco 1 - Apto 101"
+          },
+          "city": {
+            "type": "string",
+            "example": "São Paulo"
+          },
+          "state": {
+            "type": "string",
+            "example": "SP"
+          }
+        }
+      },
+      "AddressToUpdate": {
+        "type": "object",
+        "properties": {
           "country": {
             "type": "string",
             "example": "BR"
